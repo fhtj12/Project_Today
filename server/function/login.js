@@ -16,7 +16,8 @@ app.login = function(req, callback) {
                 if(err == null) {
                     ret = {
                         'ret' : 'ok',
-                        'uid' : uid
+                        'uid' : uid,
+                        'last_login' : time
                     };
                     console.log(uid + ' : ' + time + ' login');
                     callback(ret);
