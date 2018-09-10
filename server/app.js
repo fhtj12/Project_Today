@@ -13,6 +13,7 @@ app.get('/login', function (req , res) {
     login.login(req,
     function(ret) {
         res.send(ret);
+        console.log(ret);
     });
 });
 
@@ -21,6 +22,7 @@ app.get('/create_account', function(req, res) {
     console.log("client ip : " + req.ip + " / request path : " + req.path);
     account.create_account(req, function(ret) {
         res.send(ret);
+        console.log(ret);
     });
 });
 
@@ -29,6 +31,7 @@ app.get('/find_id', function(req, res) {
     console.log("client ip : " + req.ip + " / request path : " + req.path);
     account.find_id(req, function(ret) {
         res.send(ret);
+        console.log(ret);
     });
 });
 
@@ -37,6 +40,7 @@ app.get('/update_account', function(req, res) {
     console.log("client ip : " + req.ip + " / request path : " + req.path);
     account.update_account(req, function(ret) {
         res.send(ret);
+        console.log(ret);
     });
 });
 
@@ -45,6 +49,7 @@ app.get('/delete_account', function(req, res) {
     console.log("client ip : " + req.ip + " / request path : " + req.path);
     account.delete_account(req, function(ret) {
         res.send(ret);
+        console.log(ret);
     });
 });
 
@@ -53,6 +58,7 @@ app.get('/update_pwd', function(req, res) {
     console.log("client ip : " + req.ip + " / request path : " + req.path);
     account.update_pwd(req, function(ret) {
         res.send(ret);
+        console.log(ret);
     });
 });
 

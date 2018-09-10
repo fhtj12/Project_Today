@@ -14,7 +14,6 @@ app.login = function(req, callback) {
         if(err == null) {
             db_func.update_login_time(uid, function(err, time) {
                 if(err == null) {
-                    console.log(uid + ' :  2');
                     ret = {
                         'ret' : 'ok',
                         'uid' : uid

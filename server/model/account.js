@@ -168,8 +168,9 @@ app.update_login_time = function(uid, callback) {
             return callback(err);
         } else {
             var update_query = 'UPDATE account SET last_login=? WHERE uid=?';
-            var time = common_func.getTime(function(result) {
-                return result;
+            var time = null;
+            common_func.getTime(function(result) {
+                time = result;
             });
             var param = [time, uid];
             conn.query(update_query, param, function(err, result, fields) {
