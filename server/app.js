@@ -6,6 +6,7 @@ var app = express();
 // API
 var login = require('./function/login');
 var account = require('./function/account');
+var search = require('./function/search');
 
 // 로그인
 app.get('/login', function (req , res) {
@@ -57,6 +58,14 @@ app.get('/delete_account', function(req, res) {
 app.get('/update_pwd', function(req, res) {
     console.log("client ip : " + req.ip + " / request path : " + req.path);
     account.update_pwd(req, function(ret) {
+        res.send(ret);
+        console.log(ret);
+    });
+});
+
+app.get('/search', function(req, res) {
+    console.log("client ip : " + req.ip + " / request path : " + req.path);
+    search.search(req, function(ret) {
         res.send(ret);
         console.log(ret);
     });

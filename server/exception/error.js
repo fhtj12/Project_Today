@@ -12,6 +12,12 @@ app.errors = {
     internal_error : {
         'err' : 'internal_error'
     },
+    permission_error : {
+        'err' : 'permission_error'
+    },
+    processing_error : {
+        'err' : 'processing_error'
+    },
 
     // account errors
     account : {
