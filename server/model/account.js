@@ -2,7 +2,7 @@ var express = require('express');
 var mysql = require('mysql');
 
 var db_conn = require('../model/db_connection');
-var common_func = require('../model/common_func');
+var common_func = require('../function/common_func');
 var db_pool = mysql.createPool(db_conn);
 
 var error = require('../exception/error').errors;

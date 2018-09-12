@@ -18,6 +18,16 @@ app.errors = {
     processing_error : {
         'err' : 'processing_error'
     },
+    parse_error : {
+        'err' : 'parse_error'
+    },
+    
+    //search errors
+    search : {
+        invalid_hash_tag : {
+            'err' : 'invalid_hash_tag'
+        }
+    },
 
     // account errors
     account : {

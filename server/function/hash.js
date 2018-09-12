@@ -29,10 +29,8 @@ app.collect_hash = function(req, callback) {
                     } else {
                         db_hash_func.collect_hash_db(hash, uid, function(err) {
                             if(err == null) {
-                                console.log('hash collecting complete');
                                 callback(null);
                             } else {
-                                console.log(err);
                                 callback(err);
                             }
                         });

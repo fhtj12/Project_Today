@@ -2,7 +2,7 @@ var express = require('express');
 var hash = require('object-hash');
 
 var db_func = require('../model/account');
-var common_func = require('../model/common_func');
+var common_db = require('../model/common');
 
 var app = express();
 
@@ -11,7 +11,7 @@ app.create_account = function(req, callback) {
     var pwd = req.query.pwd;
     var uid = hash(id + pwd + new Date(), {algorithm : 'sha1'});
 
-    common_func.find_id_db(id, function(err) {
+    common_db.find_id_db(id, function(err) {
         if(err == null) {
             db_func.create_account_db(req, uid, function(err) {
                 if(err == null) {
@@ -36,7 +36,7 @@ app.create_account = function(req, callback) {
 
 app.find_id = function(req, callback) {
     var id = req.query.id;
-    common_func.find_id_db(id, function(err) {
+    common_db.find_id_db(id, function(err) {
         if(err == null) {
             ret = {
                 'ret' : 'ok'
@@ -56,7 +56,7 @@ app.update_account = function(req, callback) {
     if(uid == null || uid == undefined) {
         callback(err.login.invalid_session);
     }
-    common_func.confirm_uid_pwd(uid, pwd, function(err) {
+    common_db.confirm_uid_pwd(uid, pwd, function(err) {
         if(err == null) {
             db_func.update_account_db(req, uid, function(err) {
                 if(err == null) {
@@ -85,7 +85,7 @@ app.delete_account = function(req, callback) {
     if(uid == null || uid == undefined) {
         callback(err.login.invalid_session);
     }
-    common_func.confirm_uid_pwd(uid, pwd, function(err) {
+    common_db.confirm_uid_pwd(uid, pwd, function(err) {
         if(err == null) {
             db_func.delete_account_db(uid, function(err) {
                 if(err == null) {
@@ -119,7 +119,7 @@ app.update_pwd = function(req, callback) {
         callback(err.account.invalid_pwd);
     }
 
-    common_func.confirm_uid_pwd(uid, pwd, function(err) {
+    common_db.confirm_uid_pwd(uid, pwd, function(err) {
         if(err == null) {   
             db_func.update_pwd_db(uid, new_pwd, function(err) {
                 if(err == null) {
