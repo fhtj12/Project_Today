@@ -7,6 +7,7 @@ var app = express();
 var login = require('./function/login');
 var account = require('./function/account');
 var search = require('./function/search');
+var location = require('./function/location');
 
 // 로그인
 app.get('/login', function (req , res) {
@@ -63,9 +64,19 @@ app.get('/update_pwd', function(req, res) {
     });
 });
 
+// 검색
 app.get('/search', function(req, res) {
     console.log("client ip : " + req.ip + " / request path : " + req.path);
     search.search(req, function(ret) {
+        res.send(ret);
+        console.log(ret);
+    });
+});
+
+// 위치정보수집
+app.get('/gps', function(req, res) {
+    console.log("client ip : " + req.ip + " / request path : " + req.path);
+    location.collect_gps(req, function(ret) {
         res.send(ret);
         console.log(ret);
     });
