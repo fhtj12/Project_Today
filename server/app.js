@@ -82,8 +82,8 @@ app.get('/gps', function(req, res) {
     });
 });
 
-app.listen(8080, function () {
-    console.log('app listening on port 8080.');
+app.listen(9503, function () {
+    console.log('app listening on port 9503.');
 });
 
 module.exports = app;
