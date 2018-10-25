@@ -9,9 +9,10 @@ class Handler(http.server.BaseHTTPRequestHandler) :
         # 요청이 get일 때 실행되고, 응답 메세지를 전송한다.
         self.send_response(200)
         self.wfile.write(bytes(error.common_errors["ok"], 'utf-8'))
+        print(bytes(error.common_errors["ok"], 'utf-8'))
 
 # 요청받을 주소
-address = ('127.0.0.1', 19503)
+address = ('localhost', 19503)
 
 # 요청 대기
 listener = http.server.HTTPServer(address, Handler)
