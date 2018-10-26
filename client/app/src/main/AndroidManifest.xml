@@ -16,6 +16,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".LoginOK" />
+        <activity android:name=".SignUpActivity"/>
+        <activity android:name=".Map_Activity">
+
+        </activity>
+
     </application>
+
+
+    <!--반드시 추가--><uses-permission android:name="android.permission.INTERNET" />
+
 
 </manifest>

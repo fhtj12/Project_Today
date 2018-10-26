@@ -26,3 +26,14 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.naver.maps.open:naver-map-api:2.1.2@aar'
+    testCompile 'junit:junit:4.12'
+}
+
