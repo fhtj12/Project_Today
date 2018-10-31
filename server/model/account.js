@@ -12,7 +12,7 @@ var app = express();
 app.login_db = function(id, pwd, callback) {
     db_pool.getConnection(function(err, conn) {
         if(err) {
-            console.log('Failed getConnection');
+            console.log('Failed getConnection : ' + err);
             err = error.mysql_db_error;
             return callback(err);
         } else {

@@ -8,6 +8,7 @@ var login = require('./function/login');
 var account = require('./function/account');
 var search = require('./function/search');
 var location = require('./function/location');
+var test_connect = require('./model/db_connection');
 
 // 로그인
 app.get('/login', function (req , res) {
@@ -83,6 +84,7 @@ app.get('/gps', function(req, res) {
 });
 
 app.listen(9503, function () {
+    test_connect.connecting_test;
     console.log('app listening on port 9503.');
 });
 
