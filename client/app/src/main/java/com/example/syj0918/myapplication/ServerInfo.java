@@ -1,6 +1,5 @@
 package com.example.syj0918.myapplication;
 
 public class ServerInfo {
-    static String ip = "192.0.0.1"; //서버 ip, 포트번호
-    static int port = 8123;
+    static String ip = "fhtj12.iptime.org:9503/"; //서버 url, 포트번호
 }

@@ -113,8 +113,6 @@ public class SignUpActivity extends AppCompatActivity {
                     Toast.makeText(SignUpActivity.this, "값을 입력하세요.", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                client = new SocketClient(ServerInfo.ip, ServerInfo.port, "DUPLICATION_CHECK/" + new_id.getText());
-                client.start();
             }
         });
 
@@ -188,9 +186,6 @@ public class SignUpActivity extends AppCompatActivity {
                     Toast.makeText(SignUpActivity.this, "전화번호를 입력하세요", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-                client = new SocketClient(ServerInfo.ip, ServerInfo.port, newuserdata);
-                client.start();
             }
         });
 

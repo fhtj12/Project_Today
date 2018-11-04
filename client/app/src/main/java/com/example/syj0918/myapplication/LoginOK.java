@@ -62,10 +62,6 @@ public class LoginOK extends AppCompatActivity {
         Intent intent = getIntent();
         textView.setText(intent.getStringExtra("Name") + "님 반갑습니다!");
 
-        // 연결
-        client = new SocketClient(ServerInfo.ip, ServerInfo.port); //이클립스 서버 ip
-        client.start();
-
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
