@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         btnLogin = (Button) findViewById(R.id.btnLogin);
         btnCreateUser = (Button) findViewById(R.id.createUser);
 
-        //id.setText("aaa");
+        id.setText("aaa");
         //password.setText("1111");
 
         handler = new Handler(){
