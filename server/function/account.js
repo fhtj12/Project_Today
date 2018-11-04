@@ -34,7 +34,7 @@ app.create_account = function(req, callback) {
     });
 };
 
-app.duplicate_id_db = function(req, callback) {
+app.duplicate_id = function(req, callback) {
     var id = req.query.id;
     common_db.duplicate_id_db(id, function(err) {
         if(err == null) {

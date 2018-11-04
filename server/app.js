@@ -32,7 +32,7 @@ app.get('/create_account', function(req, res) {
 // 아이디 중복 검사
 app.get('/duplicate_id', function(req, res) {
     console.log("client ip : " + req.ip + " / request path : " + req.path);
-    account.find_id(req, function(ret) {
+    account.duplicate_id(req, function(ret) {
         res.send(ret);
         console.log(ret);
     });
