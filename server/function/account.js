@@ -11,7 +11,7 @@ app.create_account = function(req, callback) {
     var pwd = req.query.pwd;
     var uid = hash(id + pwd + new Date(), {algorithm : 'sha1'});
 
-    common_db.find_id_db(id, function(err) {
+    common_db.duplicate_id_db(id, function(err) {
         if(err == null) {
             db_func.create_account_db(req, uid, function(err) {
                 if(err == null) {
