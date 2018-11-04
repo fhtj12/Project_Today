@@ -9,4 +9,5 @@ public class Message_Code {
     final public int Create_Duplicate = 2002;
     final public int Create_Error = 2003;
     final public int Create_URL_Error = 2004;
+    final public int Format_Error = 2005;
 }

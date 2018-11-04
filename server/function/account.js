@@ -151,10 +151,11 @@ app.find_id = function(req, callback) {
     if(email == null || email == undefined || birth == null || birth == undefined) {
         callback(err.find.invalid_parameter);
     }
-    db_func.find_id_db(email, birth, function(err) {
+    db_func.find_id_db(email, birth, function(err, id) {
         if(err == null) {
             ret = {
-                'ret' : 'ok'
+                'ret' : 'ok',
+                'id' : id
             };
             callback(ret);
         } else {

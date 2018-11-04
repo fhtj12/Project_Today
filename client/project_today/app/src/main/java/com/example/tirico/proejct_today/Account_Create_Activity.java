@@ -57,6 +57,13 @@ public class Account_Create_Activity extends AppCompatActivity {
                     String address = tv_address.getText().toString();
                     String email = tv_email.getText().toString();
                     String birth = tv_birth.getText().toString();
+                    if(birth.contains("-")) {
+
+                    } else {
+                        hdmsg = handler.obtainMessage();
+                        hdmsg.what = code.Format_Error;
+                        handler.sendMessage(hdmsg);
+                    }
                     server_communication sc = new server_communication(id, pwd, address, email, birth);
                     sc.start();
                 } else {
@@ -102,6 +109,13 @@ public class Account_Create_Activity extends AppCompatActivity {
                     builder.setCancelable(false);
                     builder.show();
                     check = true;
+                } else if(hdmsg.what == code.Format_Error) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(Account_Create_Activity.this);
+                    builder.setMessage("생년월일을 형식에 맞게 입력해주세요.");
+                    builder.setPositiveButton("확인", null);
+                    builder.setCancelable(false);
+                    builder.show();
+                    check = false;
                 }
             }
         };

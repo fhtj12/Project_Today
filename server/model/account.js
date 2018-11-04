@@ -208,10 +208,10 @@ app.find_id_db = function(address, birth, callback) {
                     if(result.length == 0) {
                         err = error.find.id_not_found;
                         conn.release();
-                        return callback(err);
+                        return callback(err, null);
                     } else {
                         conn.release();
-                        return callback(null);
+                        return callback(null, result[0].id);
                     }
                 }
             });

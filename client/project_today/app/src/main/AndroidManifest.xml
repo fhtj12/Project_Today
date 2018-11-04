@@ -30,6 +30,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Find_Id_Activity">
+            <intent-filter>
+                <action android:name="android.intent.action.FIND_ID_ACTIVITY" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Update_Pwd_Activity">
+            <intent-filter>
+                <action android:name="android.intent.action.UPDATE_PWD_ACTIVITY" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

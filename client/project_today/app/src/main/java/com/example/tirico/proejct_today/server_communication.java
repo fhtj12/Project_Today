@@ -23,8 +23,10 @@ public class server_communication extends Thread {
     String uid;
     String last_login;
     String result_code;
+    String id;
     MainActivity ma;
     Account_Create_Activity create;
+    Find_Id_Activity find_id_activity;
 
     public server_communication(String id, String pwd) {
         this.param = "login?id=" + id + "&pwd=" + pwd;
@@ -34,6 +36,9 @@ public class server_communication extends Thread {
     }
     public server_communication(String id, String pwd, String address, String email, String birth) {
         this.param = "create_account?id=" + id + "&pwd=" + pwd + "&address=" + address + "&email=" + email + "&birth=" + birth;
+    }
+    public server_communication(String email, String birth, int env) {
+        this.param = "find_id?email=" + email + "&birth=" + birth;
     }
 
     // 스레드 구동
@@ -62,7 +67,7 @@ public class server_communication extends Thread {
                 ma.handler.sendMessage(ma.hdmsg);
                 Log.v("complete", this.res_str);
             }
-        } else if(param.contains("find_id")) { // 아이디 중복 메세지 처리
+        } else if(param.contains("duplicate_id")) { // 아이디 중복 메세지 처리
             if(result == null) {
                 result_code = "server error";
                 Log.e("connect_error", result_code);
@@ -111,6 +116,33 @@ public class server_communication extends Thread {
                     create.hdmsg = create.handler.obtainMessage();
                     create.hdmsg.what = code.Create_Error;
                     create.handler.sendMessage(create.hdmsg);
+                }
+                return;
+            }
+        } else if(param.contains("find_id")) { // 아이디 찾기 메세지 처리
+            if (result == null) {
+                result_code = "server error";
+                Log.e("connect_error", result_code);
+                find_id_activity.hdmsg = find_id_activity.handler.obtainMessage();
+                find_id_activity.hdmsg.what = code.Server_Connection_Error;
+                find_id_activity.handler.sendMessage(find_id_activity.hdmsg);
+                return;
+            } else {
+                this.res_str = result;
+                json_manager jm = new json_manager();
+                JSONObject json = jm.parseJson(res_str);
+                result_code = jm.getDataFromJson(json, "ret");
+                id = jm.getDataFromJson(json, "id");
+                if (result_code.contains("ok")) {
+                    Log.v("complete", result_code);
+                    find_id_activity.hdmsg = find_id_activity.handler.obtainMessage();
+                    find_id_activity.hdmsg.what = code.find_id_Ok;
+                    find_id_activity.handler.sendMessage(find_id_activity.hdmsg);
+                } else {
+                    Log.e("connect_error", result_code);
+                    find_id_activity.hdmsg = find_id_activity.handler.obtainMessage();
+                    find_id_activity.hdmsg.what = code.Server_Connection_Error;
+                    find_id_activity.handler.sendMessage(find_id_activity.hdmsg);
                 }
                 return;
             }
@@ -178,6 +210,9 @@ public class server_communication extends Thread {
     }
     public String getResultCode() {
         return this.result_code;
+    }
+    public String getID() {
+        return this.id;
     }
 }
 

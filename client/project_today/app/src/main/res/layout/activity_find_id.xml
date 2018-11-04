@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:hint="생년월일(YYYY.MM.DD)"
+                android:hint="생년월일(YYYY-MM-DD)"
                 android:inputType="textPassword"
                 android:padding="10dp"
                 android:textColor="#ffffff"
