@@ -62,6 +62,16 @@ app.errors = {
         expired_session : {
             'err' : 'expired_session'
         }
+    },
+
+    // find errors
+    find : {
+        id_not_found : {
+            'err' : 'id_not_found'
+        },
+        invalid_parameter : {
+            'err' : 'invalid_parameter'
+        }
     }
 };
 

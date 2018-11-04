@@ -8,7 +8,7 @@ var error = require('../exception/error').errors;
 
 var app = express();
 
-app.find_id_db = function(id, callback) {
+app.duplicate_id_db = function(id, callback) {
     db_pool.getConnection(function(err, conn) {
         if(err) {
             console.log('Failed getConnection');

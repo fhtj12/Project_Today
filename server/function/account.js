@@ -34,9 +34,9 @@ app.create_account = function(req, callback) {
     });
 };
 
-app.find_id = function(req, callback) {
+app.duplicate_id_db = function(req, callback) {
     var id = req.query.id;
-    common_db.find_id_db(id, function(err) {
+    common_db.duplicate_id_db(id, function(err) {
         if(err == null) {
             ret = {
                 'ret' : 'ok'
@@ -142,5 +142,52 @@ app.update_pwd = function(req, callback) {
         }
     });
 };
+
+// 아이디 찾기
+app.find_id = function(req, callback) {
+    var email = req.query.email;
+    var birth = req.query.birth;
+
+    if(email == null || email == undefined || birth == null || birth == undefined) {
+        callback(err.find.invalid_parameter);
+    }
+    db_func.find_id_db(email, birth, function(err) {
+        if(err == null) {
+            ret = {
+                'ret' : 'ok'
+            };
+            callback(ret);
+        } else {
+            ret = {
+                'ret' : err
+            };
+            callback(ret);
+        }
+    });
+}
+
+// 비밀번호 찾기
+app.find_pwd = function(req, callback) {
+    var id = req.query.id;
+    var email = req.query.email;
+    var birth = req.query.birth;
+
+    if(id == null || id == undefined || email == null || email == undefined || birth == null || birth == undefined) {
+        callback(err.find.invalid_parameter);
+    }
+    db_func.find_pwd_db(id, email, birth, function(err) {
+        if(err == null) {
+            ret = {
+                'ret' : 'ok'
+            };
+            callback(ret);
+        } else {
+            ret = {
+                'ret' : err
+            };
+            callback(ret);
+        }
+    });
+}
 
 module.exports = app;

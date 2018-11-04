@@ -30,7 +30,7 @@ public class server_communication extends Thread {
         this.param = "login?id=" + id + "&pwd=" + pwd;
     }
     public server_communication(String id) {
-        this.param = "find_id?id=" + id;
+        this.param = "duplicate_id?id=" + id;
     }
     public server_communication(String id, String pwd, String address, String email, String birth) {
         this.param = "create_account?id=" + id + "&pwd=" + pwd + "&address=" + address + "&email=" + email + "&birth=" + birth;
@@ -46,7 +46,7 @@ public class server_communication extends Thread {
         URL url = generate_url(basic_url + param);
 
         String result = http_request(url);
-        if(param.contains("login")) {
+        if(param.contains("login")) { // login 메세지 처리
             if(result == null) {
                 ma.hdmsg = ma.handler.obtainMessage();
                 ma.hdmsg.what = code.Login_Error;
@@ -62,7 +62,7 @@ public class server_communication extends Thread {
                 ma.handler.sendMessage(ma.hdmsg);
                 Log.v("complete", this.res_str);
             }
-        } else if(param.contains("find_id")) {
+        } else if(param.contains("find_id")) { // 아이디 중복 메세지 처리
             if(result == null) {
                 result_code = "server error";
                 Log.e("connect_error", result_code);
@@ -88,7 +88,7 @@ public class server_communication extends Thread {
                 }
                 return;
             }
-        } else if(param.contains("create")) {
+        } else if(param.contains("create")) { // 회원가입 메세지 처리
             if(result == null) {
                 result_code = "server error";
                 Log.e("connect_error", result_code);
