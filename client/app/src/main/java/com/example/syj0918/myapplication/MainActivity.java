@@ -9,15 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
-<<<<<<< HEAD
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-=======
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -31,12 +25,17 @@ import java.net.MalformedURLException;
 import java.net.Socket;
 import java.net.URL;
 import java.util.ArrayList;
->>>>>>> 0f18550c962790e1b3bfaaeb8fb3eb87cca02a49
 
 public class MainActivity extends AppCompatActivity {
     EditText id, password;
     Button btnLogin, btnCreateUser;
     String res_str, user_id, userName, uid, last_login;
+
+    //소켓관련변수들
+    SocketClient client;
+    ReceiveThread receive;
+    SendThread send;
+    Socket socket;
 
     Handler handler;
     Message hdmsg;
@@ -52,13 +51,13 @@ public class MainActivity extends AppCompatActivity {
         btnLogin = (Button) findViewById(R.id.btnLogin);
         btnCreateUser = (Button) findViewById(R.id.createUser);
 
-        id.setText("aaa");
+        //id.setText("aaa");
         //password.setText("1111");
 
-        handler = new Handler() {
+        handler = new Handler(){
             @Override
             public void handleMessage(Message hdmsg) {
-                if (hdmsg.what == 1111) {
+                if(hdmsg.what == 1111){
                     progressDialog = new ProgressDialog(MainActivity.this);
                     progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                     progressDialog.setMessage("로그인 중...");
@@ -68,18 +67,15 @@ public class MainActivity extends AppCompatActivity {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-<<<<<<< HEAD
-=======
                             //send = new SendThread(socket, "END");
                             //send.start(); // 소켓 종료시키는 문장 보내기
->>>>>>> 0f18550c962790e1b3bfaaeb8fb3eb87cca02a49
                             Intent intent = new Intent(getApplicationContext(), LoginOK.class);
                             intent.putExtra("Name", uid);
                             startActivity(intent);
                             progressDialog.dismiss();
                         }
                     }, 200);
-                } else if (hdmsg.what == 2222) {
+                } else if(hdmsg.what == 2222){
                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                     builder.setMessage("아이디가 존재하지 않거나 틀린 비밀번호입니다.");
                     builder.setPositiveButton("확인", null);
@@ -96,12 +92,9 @@ public class MainActivity extends AppCompatActivity {
                 String inputid = id.getText().toString();
                 String inputpassword = password.getText().toString();
 
-<<<<<<< HEAD
-=======
                 //SendThread 시작
                 //String userdata = "login" + "/" + inputid + "/" + inputpassword;
 
->>>>>>> 0f18550c962790e1b3bfaaeb8fb3eb87cca02a49
                 if (inputid.equals("")) {
                     Toast.makeText(MainActivity.this, "아이디를 입력하세요", Toast.LENGTH_SHORT).show();
                     return;
@@ -110,31 +103,15 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
-<<<<<<< HEAD
-                user_id = id.getText().toString();
-=======
                 // 연결
                 //client = new SocketClient(ServerInfo.ip, ServerInfo.port, userdata); //라즈베리파이 ip
                 //client.start();
                 //user_id = id.getText().toString();
                 server_communication sc = new server_communication(inputid, inputpassword);
                 sc.start();
->>>>>>> 0f18550c962790e1b3bfaaeb8fb3eb87cca02a49
                 //시작후 edittext 초기화
                 id.setText("");
                 password.setText("");
-
-                String ret = login(inputid, inputpassword);
-                if(ret.contains("ok")) {
-                    Toast.makeText(MainActivity.this, ret, Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getApplicationContext(), LoginOK.class);
-                    startActivity(intent);
-                    finish();
-                    return;
-                } else {
-                    Toast.makeText(MainActivity.this, ret, Toast.LENGTH_SHORT).show();
-                    return;
-                }
             }
         });
 
@@ -147,32 +124,10 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+
     }
 
-<<<<<<< HEAD
-    public static String login(String id, String pwd) {
-        String ret = null;
-        String url = "fhtj12.iptime.org:9503/" + "login?" + "id=" + id + "&pwd=" + pwd;
-        json_parsing jp = new json_parsing();
-
-        try {
-            URL conn = new URL(url);
-            HttpURLConnection httpURLConnection = (HttpURLConnection) conn.openConnection();
-
-            httpURLConnection.setRequestMethod("Post");
-            httpURLConnection.setRequestProperty("Accept-Charset", "UTF-8");
-            httpURLConnection.setRequestProperty("Context_Type", "application/x-www-form-urlencoded;cahrset=UTF-8");
-
-            InputStream in = new BufferedInputStream(httpURLConnection.getInputStream());
-            String str = in.toString();
-            ret = jp.json_parsing_login(str);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return e.toString();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return e.toString();
-=======
     // 서버 통신 스레드(rest)
     class server_communication extends Thread {
         final String basic_url = "fhtj12.iptime.org:9503/";
@@ -295,10 +250,89 @@ public class MainActivity extends AppCompatActivity {
             this.ip = ip;
             this.port = port;
             this.msg = msg;
->>>>>>> 0f18550c962790e1b3bfaaeb8fb3eb87cca02a49
         }
 
-        return ret;
+        @Override
+        public void run() {
+
+            try {
+                // 연결후 바로 ReceiveThread 시작
+                socket = new Socket(ip, port);
+                receive = new ReceiveThread(socket);
+                receive.start();
+                send = new SendThread(socket, msg);
+                send.start();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
+
+    //서버로부터 값을 받는 스레드
+    class ReceiveThread extends Thread {
+        private Socket sock = null;
+        BufferedReader input;
+
+        public ReceiveThread(Socket socket) {
+            this.sock = socket;
+            try {
+                input = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+            } catch (Exception e) {
+            }
+        }
+
+        public void run() {
+            try {
+                while (input != null) {
+                    String msg = input.readLine();
+                    String stok[] = msg.split("/");
+                    if (stok[0].equals("USER_NAME")) {
+                        userName = stok[1];
+                        hdmsg = handler.obtainMessage();
+                        hdmsg.what = 1111;
+                        handler.sendMessage(hdmsg);
+                        break;
+                    } else if(stok[0].equals("LOGIN_FAILED")){
+                        hdmsg = handler.obtainMessage();
+                        hdmsg.what = 2222;
+                        handler.sendMessage(hdmsg);
+                        break;
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    //서버로 보내는 스레드
+    class SendThread extends Thread {
+        Socket socket;
+        String msg;
+        PrintWriter output;
+
+        public SendThread(Socket socket, String msg) {
+            this.socket = socket;
+            this.msg = msg;
+            try {
+                output = new PrintWriter(socket.getOutputStream(),true);
+            } catch (Exception e) {
+            }
+        }
+
+        public void run() {
+            try {
+                // 메세지 전송부
+                if (output != null) {
+                    if (msg != null) {
+                        output.println(msg);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
 }
