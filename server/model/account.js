@@ -196,8 +196,8 @@ app.find_id_db = function(address, birth, callback) {
             err = error.mysql_db_error;
             return callback(err);
         } else {
-            var query = 'SELECT * FROM account WHERE address=? AND birth=?';
-            var param = [address, birth];
+            var query = 'SELECT * FROM account WHERE address=?' + mysql.escape(address);
+            //var param = [address, birth];
             conn.query(query, param, function(err, result, fields) {
                 if(err) {
                     console.log('Failed create a Query');
@@ -227,8 +227,8 @@ app.find_pwd_db = function(id, address, birth, callback) {
             err = error.mysql_db_error;
             return callback(err);
         } else {
-            var query = 'SELECT * FROM account WHERE id=? AND address=? AND birth=?';
-            var param = [id, address, birth];
+            var query = 'SELECT * FROM account WHERE id=? AND address=?';
+            var param = [id, address];
             conn.query(query, param, function(err, result, fields) {
                 if(err) {
                     console.log('Failed create a Query');
