@@ -26,7 +26,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="10dp"
-                android:text="비밀번호 변경"
+                android:text="비밀번호 찾기"
                 android:textColor="@color/black_gray"
                 android:textSize="30dp"
                 android:textStyle="bold" />
@@ -45,36 +45,45 @@
 
 
                 <EditText
-                    android:id="@+id/update_pwd_new_pwd"
+                    android:id="@+id/find_pwd_email"
                     android:layout_width="280dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:hint="새 비밀번호"
+                    android:hint="이메일"
                     android:padding="10dp"
-                    android:inputType="textPassword"
                     android:textColor="@color/black"
                     android:textColorHint="@color/black_gray" />
             </LinearLayout>
 
             <EditText
-                android:id="@+id/update_pwd_confirm_pwd"
+                android:id="@+id/find_pwd_id"
                 android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:hint="비밀번호 확인"
-                android:inputType="textPassword"
+                android:hint="아이디"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black_gray" />
+
+            <EditText
+                android:id="@+id/find_pwd_birth"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:hint="생년월일(YYYY-MM-DD)"
                 android:padding="10dp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/black_gray" />
 
             <Button
-                android:id="@+id/btnUpdatePwd"
+                android:id="@+id/btnFindPwd"
                 android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="40dp"
-                android:text="비밀번호변경완료"
+                android:layout_marginTop="30dp"
+                android:text="비밀번호변경"
                 android:textSize="18dp"
                 android:textStyle="bold"
                 android:background="@color/sky_blue"/>

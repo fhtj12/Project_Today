@@ -34,21 +34,20 @@ public class Find_Id_Activity extends AppCompatActivity {
                 String email = tv_email.getText().toString();
                 String birth = tv_birth.getText().toString();
                 if(birth.contains("-")) {
-
+                    sc = new server_communication(email, birth);
+                    sc.start();
                 } else {
                     hdmsg = handler.obtainMessage();
                     hdmsg.what = code.Format_Error;
                     handler.sendMessage(hdmsg);
                 }
-                sc = new server_communication(email, birth, 1);
-                sc.start();
             }
         });
 
         btn_update_pwd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Update_Pwd_Activity.class);
+                Intent intent = new Intent(getApplicationContext(), Find_Pwd_Activity.class);
                 startActivity(intent);
             }
         });
@@ -75,6 +74,12 @@ public class Find_Id_Activity extends AppCompatActivity {
                     String id = sc.getID();
                     AlertDialog.Builder builder = new AlertDialog.Builder(Find_Id_Activity.this);
                     builder.setMessage("아이디 : " + id + " 입니다.");
+                    builder.setPositiveButton("확인", null);
+                    builder.setCancelable(false);
+                    builder.show();
+                } else if(hdmsg.what == code.Server_Connection_Error) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(Find_Id_Activity.this);
+                    builder.setMessage("등록되지 않은 정보입니다.");
                     builder.setPositiveButton("확인", null);
                     builder.setCancelable(false);
                     builder.show();

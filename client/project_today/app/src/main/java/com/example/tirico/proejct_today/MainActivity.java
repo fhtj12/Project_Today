@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                sc = new server_communication(id, pwd);
+                sc = new server_communication(id, pwd, 1);
                 sc.start();
             }
         });

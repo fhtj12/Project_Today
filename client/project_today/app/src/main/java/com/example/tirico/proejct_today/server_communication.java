@@ -27,9 +27,17 @@ public class server_communication extends Thread {
     MainActivity ma;
     Account_Create_Activity create;
     Find_Id_Activity find_id_activity;
+    Find_Pwd_Activity find_pwd_activity;
+    Update_Pwd_Activity update_pwd_activity;
 
-    public server_communication(String id, String pwd) {
-        this.param = "login?id=" + id + "&pwd='" + pwd + "'";
+    public server_communication(String arg1, String arg2, int env) {
+        if(env == 1) { // login
+            this.param = "login?id=" + arg1 + "&pwd='" + arg2 + "'";
+        } else if(env == 2) { // find_pwd
+            this.param = "find_pwd?id=" + arg1 + "&email='" + arg2 + "'";
+        } else if(env == 3) { // update_pwd
+            this.param = "update_pwd?id=" + arg1 + "&pwd=" + arg2;
+        }
     }
     public server_communication(String id) {
         this.param = "duplicate_id?id=" + id;
@@ -37,7 +45,7 @@ public class server_communication extends Thread {
     public server_communication(String id, String pwd, String address, String email, String birth) {
         this.param = "create_account?id=" + id + "&pwd=" + pwd + "&address=" + address + "&email=" + email + "&birth=" + birth;
     }
-    public server_communication(String email, String birth, int env) {
+    public server_communication(String email, String birth) {
         if(birth.contains("-") && birth.length() > 0) {
             this.param = "find_id?email=" + email;
         } else {
@@ -161,6 +169,50 @@ public class server_communication extends Thread {
                     find_id_activity.handler.sendMessage(find_id_activity.hdmsg);
                 }
                 return;
+            }
+        } else if(param.contains("find_pwd")) {
+            if(result == null) {
+                find_pwd_activity.hdmsg = find_pwd_activity.handler.obtainMessage();
+                find_pwd_activity.hdmsg.what = code.Server_Connection_Error;
+                find_pwd_activity.handler.sendMessage(find_pwd_activity.hdmsg);
+            } else {
+                this.res_str = result;
+                json_manager jm = new json_manager();
+                JSONObject json = jm.parseJson(res_str);
+                result_code = jm.getDataFromJson(json, "ret");
+                if(result_code.contains("ok")) {
+                    find_pwd_activity.hdmsg = find_pwd_activity.handler.obtainMessage();
+                    find_pwd_activity.hdmsg.what = code.find_pwd_Ok;
+                    find_pwd_activity.handler.sendMessage(find_pwd_activity.hdmsg);
+                    Log.v("complete", this.res_str);
+                } else {
+                    find_pwd_activity.hdmsg = find_pwd_activity.handler.obtainMessage();
+                    find_pwd_activity.hdmsg.what = code.find_pwd_Error;
+                    find_pwd_activity.handler.sendMessage(find_pwd_activity.hdmsg);
+                    Log.e("connect_error", result_code);
+                }
+            }
+        } else if(param.contains("update_pwd")) {
+            if(result == null) {
+                update_pwd_activity.hdmsg = update_pwd_activity.handler.obtainMessage();
+                update_pwd_activity.hdmsg.what = code.Server_Connection_Error;
+                update_pwd_activity.handler.sendMessage(update_pwd_activity.hdmsg);
+            } else {
+                this.res_str = result;
+                json_manager jm = new json_manager();
+                JSONObject json = jm.parseJson(res_str);
+                result_code = jm.getDataFromJson(json, "ret");
+                if(result_code.contains("ok")) {
+                    update_pwd_activity.hdmsg = update_pwd_activity.handler.obtainMessage();
+                    update_pwd_activity.hdmsg.what = code.update_pwd_Ok;
+                    update_pwd_activity.handler.sendMessage(update_pwd_activity.hdmsg);
+                    Log.v("complete", this.res_str);
+                } else {
+                    update_pwd_activity.hdmsg = update_pwd_activity.handler.obtainMessage();
+                    update_pwd_activity.hdmsg.what = code.update_pwd_Error;
+                    update_pwd_activity.handler.sendMessage(update_pwd_activity.hdmsg);
+                    Log.e("connect_error", result_code);
+                }
             }
         }
     }
