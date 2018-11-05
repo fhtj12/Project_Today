@@ -189,14 +189,14 @@ app.update_login_time = function(uid, callback) {
 };
 
 // 아이디 찾기
-app.find_id_db = function(address, birth, callback) {
+app.find_id_db = function(email, birth, callback) {
     db_pool.getConnection(function(err, conn) {
         if(err) {
             console.log('Failed getConnection');
             err = error.mysql_db_error;
             return callback(err);
         } else {
-            var query = 'SELECT * FROM account WHERE address=?' + address;
+            var query = 'SELECT * FROM account WHERE email=?' + email;
             //var param = [address, birth];
             conn.query(query, function(err, result, fields) {
                 if(err) {
@@ -220,15 +220,15 @@ app.find_id_db = function(address, birth, callback) {
 }
 
 // 비밀번호 찾기
-app.find_pwd_db = function(id, address, birth, callback) {
+app.find_pwd_db = function(id, email, birth, callback) {
     db_pool.getConnection(function(err, conn) {
         if(err) {
             console.log('Failed getConnection');
             err = error.mysql_db_error;
             return callback(err);
         } else {
-            var query = 'SELECT * FROM account WHERE id=? AND address=?';
-            var param = [id, address];
+            var query = 'SELECT * FROM account WHERE id=? AND email=?';
+            var param = [id, email];
             conn.query(query, param, function(err, result, fields) {
                 if(err) {
                     console.log('Failed create a Query');
