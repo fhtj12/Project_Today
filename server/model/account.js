@@ -196,11 +196,11 @@ app.find_id_db = function(email, birth, callback) {
             err = error.mysql_db_error;
             return callback(err);
         } else {
-            var query = 'SELECT * FROM account WHERE email=?' + email;
-            //var param = [address, birth];
-            conn.query(query, function(err, result, fields) {
+            var query = 'SELECT * FROM account WHERE email=?';
+            var param = [email];
+            conn.query(query, param, function(err, result, fields) {
                 if(err) {
-                    console.log('Failed create a Query');
+                    console.log('Failed create a Query : ' + err);
                     conn.release();
                     err = error.mysql_db_error;
                     return callback(err);
