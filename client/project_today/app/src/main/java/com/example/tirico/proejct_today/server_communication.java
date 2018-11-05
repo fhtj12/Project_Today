@@ -38,7 +38,14 @@ public class server_communication extends Thread {
         this.param = "create_account?id=" + id + "&pwd=" + pwd + "&address=" + address + "&email=" + email + "&birth=" + birth;
     }
     public server_communication(String email, String birth, int env) {
-        this.param = "find_id?email=" + email + "&birth=" + birth;
+        if(birth.contains("-") && birth.length() > 0) {
+            this.param = "find_id?email=" + email;
+        } else {
+            Log.e("connect_error", result_code);
+            find_id_activity.hdmsg = find_id_activity.handler.obtainMessage();
+            find_id_activity.hdmsg.what = code.Format_Error;
+            find_id_activity.handler.sendMessage(find_id_activity.hdmsg);
+        }
     }
 
     // 스레드 구동
@@ -54,18 +61,27 @@ public class server_communication extends Thread {
         if(param.contains("login")) { // login 메세지 처리
             if(result == null) {
                 ma.hdmsg = ma.handler.obtainMessage();
-                ma.hdmsg.what = code.Login_Error;
-                ma.handler.sendMessage(MainActivity.hdmsg);
+                ma.hdmsg.what = code.Server_Connection_Error;
+                ma.handler.sendMessage(ma.hdmsg);
             } else {
                 this.res_str = result;
                 json_manager jm = new json_manager();
                 JSONObject json = jm.parseJson(res_str);
-                this.uid = jm.getDataFromJson(json, "uid");
-                this.last_login = jm.getDataFromJson(json, "last_login");
-                ma.hdmsg = ma.handler.obtainMessage();
-                ma.hdmsg.what = code.Login_Ok;
-                ma.handler.sendMessage(ma.hdmsg);
-                Log.v("complete", this.res_str);
+                String ret_code = jm.getDataFromJson(json, "ret");
+                if(ret_code.contains("ok")) {
+                    this.uid = jm.getDataFromJson(json, "uid");
+                    this.last_login = jm.getDataFromJson(json, "last_login");
+                    ma.hdmsg = ma.handler.obtainMessage();
+                    ma.hdmsg.what = code.Login_Ok;
+                    ma.handler.sendMessage(ma.hdmsg);
+                    Log.v("complete", this.res_str);
+                } else {
+                    result_code = jm.getDataFromJson(json, "ret");
+                    ma.hdmsg = ma.handler.obtainMessage();
+                    ma.hdmsg.what = code.Login_Error;
+                    ma.handler.sendMessage(ma.hdmsg);
+                    Log.e("connect_error", result_code);
+                }
             }
         } else if(param.contains("duplicate_id")) { // 아이디 중복 메세지 처리
             if(result == null) {

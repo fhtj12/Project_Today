@@ -21,7 +21,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="오늘 뭐 먹지?"
+                android:text="오늘 어디 가지?"
                 android:textSize="40dp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
