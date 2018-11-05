@@ -148,7 +148,7 @@ app.find_id = function(req, callback) {
     var email = req.query.email;
     var birth = req.query.birth;
 
-    if(email == null || email == undefined || birth == null || birth == undefined) {
+    if(email == null || email == undefined) {
         callback(err.find.invalid_parameter);
     }
     db_func.find_id_db(email, birth, function(err, id) {
@@ -173,7 +173,7 @@ app.find_pwd = function(req, callback) {
     var email = req.query.email;
     var birth = req.query.birth;
 
-    if(id == null || id == undefined || email == null || email == undefined || birth == null || birth == undefined) {
+    if(id == null || id == undefined || email == null || email == undefined) {
         callback(err.find.invalid_parameter);
     }
     db_func.find_pwd_db(id, email, birth, function(err) {
