@@ -196,7 +196,7 @@ app.find_id_db = function(address, birth, callback) {
             err = error.mysql_db_error;
             return callback(err);
         } else {
-            var query = 'SELECT * FROM account WHERE address=?' + mysql.escape(address);
+            var query = 'SELECT * FROM account WHERE address=?' + address;
             //var param = [address, birth];
             conn.query(query, function(err, result, fields) {
                 if(err) {
