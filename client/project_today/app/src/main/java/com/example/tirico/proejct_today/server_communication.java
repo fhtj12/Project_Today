@@ -29,7 +29,7 @@ public class server_communication extends Thread {
     Find_Id_Activity find_id_activity;
 
     public server_communication(String id, String pwd) {
-        this.param = "login?id=" + id + "&pwd=" + pwd;
+        this.param = "login?id=" + id + "&pwd='" + pwd + "'";
     }
     public server_communication(String id) {
         this.param = "duplicate_id?id=" + id;

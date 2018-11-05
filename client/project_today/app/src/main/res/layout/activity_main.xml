@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@drawable/foodmain"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -15,8 +15,18 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="350dp"
+            android:layout_height="match_parent"
             android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="오늘 뭐 먹지?"
+                android:textSize="40dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="20dp"/>
 
             <EditText
                 android:id="@+id/input_id"
@@ -26,9 +36,10 @@
                 android:layout_marginTop="50dp"
                 android:elevation="10dp"
                 android:hint="아이디"
+                android:textSize="25dp"
                 android:padding="10dp"
-                android:textColor="#ffffff"
-                android:textColorHint="#ffffff" />
+                android:textColor="@color/black"
+                android:textColorHint="@color/black_gray" />
 
             <EditText
                 android:id="@+id/input_pwd"
@@ -38,20 +49,24 @@
                 android:layout_marginTop="10dp"
                 android:elevation="10dp"
                 android:hint="비밀번호"
+                android:textSize="25dp"
                 android:inputType="textPassword"
                 android:padding="10dp"
-                android:textColor="#ffffff"
-                android:textColorHint="#ffffff" />
+                android:textColor="@color/black"
+                android:textColorHint="@color/black_gray" />
 
             <Button
                 android:id="@+id/btnLogin"
                 android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="30dp"
                 android:text="로그인"
                 android:textSize="18dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:background="@drawable/btn_style"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black_gray" />
 
             <Button
                 android:id="@+id/createUser"
@@ -59,6 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
+                android:background="@drawable/btn_style"
                 android:text="회원가입"
                 android:textSize="18dp"
                 android:textStyle="bold" />
@@ -70,6 +86,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:text="아이디/비밀번호 찾기"
+                android:background="@drawable/btn_style"
                 android:textSize="18dp"
                 android:textStyle="bold" />
         </LinearLayout>

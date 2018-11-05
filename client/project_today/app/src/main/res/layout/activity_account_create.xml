@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/colorPrimary"
+    android:background="@color/main_bass"
     tools:context=".Account_Create_Activity">
 
     <LinearLayout
@@ -16,7 +16,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
+            android:background="@color/main_bass"
             android:orientation="vertical">
 
             <TextView
@@ -24,9 +24,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="30dp"
                 android:text="회원가입"
-                android:textColor="#ffffff"
+                android:textColor="@color/black_gray"
                 android:textSize="30dp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -35,7 +35,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@color/gray"
+            android:padding="1dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -49,14 +51,16 @@
                     android:layout_gravity="center"
                     android:hint="아이디"
                     android:padding="10dp"
-                    android:textColor="#ffffff"
-                    android:textColorHint="#ffffff" />
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black_gray" />
 
                 <Button
                     android:id="@+id/btnCheck"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="중복체크" />
+                    android:text="중복체크"
+                    android:textStyle="bold"
+                    android:background="@color/sky_blue"/>
             </LinearLayout>
 
             <EditText
@@ -68,8 +72,8 @@
                 android:hint="비밀번호"
                 android:inputType="textPassword"
                 android:padding="10dp"
-                android:textColor="#ffffff"
-                android:textColorHint="#ffffff" />
+                android:textColor="@color/black"
+                android:textColorHint="@color/black_gray"/>
 
             <EditText
                 android:id="@+id/email"
@@ -79,8 +83,8 @@
                 android:layout_marginTop="10dp"
                 android:hint="이메일"
                 android:padding="10dp"
-                android:textColor="#ffffff"
-                android:textColorHint="#ffffff" />
+                android:textColor="@color/black"
+                android:textColorHint="@color/black_gray" />
 
             <EditText
                 android:id="@+id/birth"
@@ -90,8 +94,8 @@
                 android:layout_marginTop="10dp"
                 android:hint="생년월일(YYYY-MM-DD)"
                 android:padding="10dp"
-                android:textColor="#ffffff"
-                android:textColorHint="#ffffff" />
+                android:textColor="@color/black"
+                android:textColorHint="@color/black_gray" />
 
             <EditText
                 android:id="@+id/address"
@@ -101,8 +105,8 @@
                 android:layout_marginTop="10dp"
                 android:hint="주소"
                 android:padding="10dp"
-                android:textColor="#ffffff"
-                android:textColorHint="#ffffff" />
+                android:textColor="@color/black"
+                android:textColorHint="@color/black_gray" />
 
             <Button
                 android:id="@+id/btnNext"
@@ -112,7 +116,8 @@
                 android:layout_marginTop="10dp"
                 android:text="다음"
                 android:textSize="18dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:background="@color/sky_blue"/>
 
             <Button
                 android:id="@+id/btnCancel"
@@ -122,7 +127,8 @@
                 android:layout_marginTop="10dp"
                 android:text="취소"
                 android:textSize="18dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:background="@color/black_gray"/>
         </LinearLayout>
 
     </LinearLayout>
