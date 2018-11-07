@@ -36,7 +36,7 @@ public class server_communication extends Thread {
         } else if(env == 2) { // find_pwd
             this.param = "find_pwd?id=" + arg1 + "&email='" + arg2 + "'";
         } else if(env == 3) { // update_pwd
-            this.param = "update_pwd?id=" + arg1 + "&pwd='" + arg2 + "'";
+            this.param = "update_pwd?id=" + arg1 + "&pwd=" + arg2;
         }
     }
     public server_communication(String id) {

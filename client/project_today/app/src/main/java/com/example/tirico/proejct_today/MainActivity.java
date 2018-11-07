@@ -15,6 +15,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     public static String uid;
+    public String id;
     public static String last_login;
     public static Handler handler;
     public static Message hdmsg;
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String id = tv_id.getText().toString();
+                id = tv_id.getText().toString();
                 String pwd = tv_pwd.getText().toString();
                 if(id.equals("")) {
                     Toast.makeText(MainActivity.this, "아이디를 입력해주세요.", Toast.LENGTH_SHORT).show();
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                     uid = sc.getUID();
                     last_login = sc.getLast_login();
                     Intent intent = new Intent(getApplicationContext(), AppActivity.class);
-                    intent.putExtra("uid", uid);
+                    intent.putExtra("id", id);
                     intent.putExtra("last_login", last_login);
                     startActivity(intent);
                 } else if(hdmsg.what == code.Login_Error) {
