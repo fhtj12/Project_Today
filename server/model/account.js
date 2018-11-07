@@ -136,15 +136,15 @@ app.delete_account_db = function(uid, callback) {
     });
 };
 
-app.update_pwd_db = function(uid, pwd, callback) {
+app.update_pwd_db = function(id, pwd, callback) {
     db_pool.getConnection(function(err, conn) {
         if(err) {
             console.log('Failed getConnection');
             err = error.mysql_db_error;
             return callback(err);
         } else {
-            var update_query = 'UPDATE account SET pwd=? WHERE uid=?';
-            var param = [mysql.escape(pwd), uid];
+            var update_query = 'UPDATE account SET pwd=? WHERE id=?';
+            var param = [mysql.escape(pwd), id];
             conn.query(update_query, param, function(err, result, fields) {
                 if(err) {
                     console.log('Failed create a Query');
@@ -219,7 +219,7 @@ app.find_id_db = function(email, birth, callback) {
     });
 }
 
-// 비밀번호 찾기
+// 비밀번호 찾기(아이디랑 이메일로 인증만 거침.)
 app.find_pwd_db = function(id, email, birth, callback) {
     db_pool.getConnection(function(err, conn) {
         if(err) {
@@ -248,6 +248,6 @@ app.find_pwd_db = function(id, email, birth, callback) {
             });
         }
     });
-}
+};
 
 module.exports = app;

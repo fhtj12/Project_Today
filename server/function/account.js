@@ -109,19 +109,19 @@ app.delete_account = function(req, callback) {
 };
 
 app.update_pwd = function(req, callback) {
-    var uid = req.query.uid;
+    var id = req.query.id;
     var pwd = req.query.pwd;
     var new_pwd = req.query.new_pwd;
-    if(uid == null || uid == undefined) {
+    if(id == null || id == undefined) {
         callback(err.login.invalid_session);
     }
     if(pwd == null || pwd == undefined) {
         callback(err.account.invalid_pwd);
     }
 
-    common_db.confirm_uid_pwd(uid, pwd, function(err) {
+    common_db.confirm_uid_pwd(id, pwd, function(err) {
         if(err == null) {   
-            db_func.update_pwd_db(uid, new_pwd, function(err) {
+            db_func.update_pwd_db(id, new_pwd, function(err) {
                 if(err == null) {
                     ret = {
                         'ret' : 'ok'

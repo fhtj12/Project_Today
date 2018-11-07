@@ -37,14 +37,15 @@ app.duplicate_id_db = function(id, callback) {
     });
 };
 
-app.confirm_uid_pwd = function(uid, pwd, callback) {
+// 일단 uid가 아닌 id로 인식되게 변경
+app.confirm_uid_pwd = function(id, pwd, callback) {
     db_pool.getConnection(function(err, conn) {
         if(err) {
             console.log('Failed getConnection');
             err = error.mysql_db_error;
             return callback(err);
         } else {
-            var query = 'SELECT * FROM account WHERE uid = ' + mysql.escape(uid);
+            var query = 'SELECT * FROM account WHERE id = ' + mysql.escape(id);
             conn.query(query, function(err, result, fields) {
                 if(err) {
                     console.log('Failed create a Query');
