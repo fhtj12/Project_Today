@@ -47,7 +47,7 @@ public class server_communication extends Thread {
     }
     public server_communication(String email, String birth) {
         if(birth.contains("-") && birth.length() > 0) {
-            this.param = "find_id?email=" + email;
+            this.param = "find_id?email='" + email + "'";
         } else {
             Log.e("connect_error", result_code);
             find_id_activity.hdmsg = find_id_activity.handler.obtainMessage();

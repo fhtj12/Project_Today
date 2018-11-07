@@ -119,7 +119,7 @@ app.update_pwd = function(req, callback) {
         callback(err.account.invalid_pwd);
     }
 
-    db_func.update_pwd(id, pwd, function(err) {
+    db_func.update_pwd_db(id, pwd, function(err) {
         if(err == null) {
             ret = {
                 'ret' : 'ok'
