@@ -119,28 +119,42 @@ app.update_pwd = function(req, callback) {
         callback(err.account.invalid_pwd);
     }
 
-    common_db.confirm_uid_pwd(id, pwd, function(err) {
-        if(err == null) {   
-            db_func.update_pwd_db(id, new_pwd, function(err) {
-                if(err == null) {
-                    ret = {
-                        'ret' : 'ok'
-                    };
-                    callback(ret);
-                } else {
-                    ret = {
-                        'ret' : err
-                    };
-                    callback(ret);
-                }
-            });
+    db_func.update_pwd(id, pwd, function(err) {
+        if(err == null) {
+            ret = {
+                'ret' : 'ok'
+            };
+            callback(ret);
         } else {
             ret = {
-                'ret' : err
+             'ret' : err
             };
             callback(ret);
         }
     });
+
+    // common_db.confirm_uid_pwd(id, pwd, function(err) {
+    //     if(err == null) {   
+    //         db_func.update_pwd_db(id, new_pwd, function(err) {
+    //             if(err == null) {
+    //                 ret = {
+    //                     'ret' : 'ok'
+    //                 };
+    //                 callback(ret);
+    //             } else {
+    //                 ret = {
+    //                     'ret' : err
+    //                 };
+    //                 callback(ret);
+    //             }
+    //         });
+    //     } else {
+    //         ret = {
+    //             'ret' : err
+    //         };
+    //         callback(ret);
+    //     }
+    // });
 };
 
 // 아이디 찾기
