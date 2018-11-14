@@ -6,6 +6,7 @@ public class Message_Code {
     final public int find_id_Ok = 1002;
     final public int update_pwd_Ok = 1003;
     final public int find_pwd_Ok = 1004;
+    final public int search_Ok = 1005;
     final public int Server_Connection_Error = 2000;
     final public int Login_Error = 2001;
     final public int Create_Duplicate = 2002;
@@ -16,4 +17,5 @@ public class Message_Code {
     final public int find_pwd_Error = 2007;
     final public int update_pwd_incorrect_Error = 2008;
     final public int update_pwd_empty_info_Error = 2009;
+    final public int search_failed = 2010;
 }

@@ -44,7 +44,7 @@ public class Account_Create_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String id_tmp = tv_id.getText().toString();
-                server_communication sc = new server_communication(id_tmp);
+                server_communication sc = new server_communication(id_tmp, 1);
                 sc.start();
             }
         });

@@ -24,11 +24,14 @@ public class server_communication extends Thread {
     String last_login;
     String result_code;
     String id;
+    String search_result;
     MainActivity ma;
     Account_Create_Activity create;
     Find_Id_Activity find_id_activity;
     Find_Pwd_Activity find_pwd_activity;
     Update_Pwd_Activity update_pwd_activity;
+    AppActivity search_activity;
+
 
     public server_communication(String arg1, String arg2, int env) {
         if(env == 1) { // login
@@ -39,8 +42,12 @@ public class server_communication extends Thread {
             this.param = "update_pwd?id=" + arg1 + "&pwd=" + arg2;
         }
     }
-    public server_communication(String id) {
-        this.param = "duplicate_id?id=" + id;
+    public server_communication(String arg, int env) {
+        if(env == 1) {
+            this.param = "duplicate_id?id=" + arg;
+        } else if(env == 2) {
+            this.param = "search?search=" + arg;
+        }
     }
     public server_communication(String id, String pwd, String address, String email, String birth) {
         this.param = "create_account?id=" + id + "&pwd=" + pwd + "&address=" + address + "&email=" + email + "&birth=" + birth;
@@ -214,6 +221,31 @@ public class server_communication extends Thread {
                     Log.e("connect_error", result_code);
                 }
             }
+        } else if(param.contains("search")) {
+            if(result == null) {
+                search_activity.hdmsg = search_activity.handler.obtainMessage();
+                search_activity.hdmsg.what = code.Server_Connection_Error;
+                search_activity.handler.sendMessage(search_activity.hdmsg);
+            } else {
+                this.res_str = result;
+                json_manager jm = new json_manager();
+                JSONObject json = jm.parseJson(res_str);
+                result_code = jm.getDataFromJson(json, "ret");
+                search_result = jm.getDataFromJson(json, "name");
+                search_result += "/" + jm.getDataFromJson(json, "address");
+                search_result += "/" + jm.getDataFromJson(json, "phone");
+                if(result_code.contains("ok")) {
+                    search_activity.hdmsg = search_activity.handler.obtainMessage();
+                    search_activity.hdmsg.what = code.search_Ok;
+                    search_activity.handler.sendMessage(search_activity.hdmsg);
+                    Log.v("complete", this.res_str);
+                } else {
+                    search_activity.hdmsg = search_activity.handler.obtainMessage();
+                    search_activity.hdmsg.what = code.search_failed;
+                    search_activity.handler.sendMessage(search_activity.hdmsg);
+                    Log.e("connect_error", result_code);
+                }
+            }
         }
     }
 
@@ -282,6 +314,7 @@ public class server_communication extends Thread {
     public String getID() {
         return this.id;
     }
+    public String getSearchResult() { return this.search_result; }
 }
 
 // json 파싱
