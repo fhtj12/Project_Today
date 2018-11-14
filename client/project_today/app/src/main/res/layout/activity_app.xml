@@ -59,9 +59,10 @@
 
         <Button
             android:id="@+id/btn_search"
-            android:layout_width="40dp"
+            android:layout_width="80dp"
             android:layout_height="match_parent"
-            android:src="@drawable/search"/>
+            android:text="검색"
+            />
 
         <TextView
             android:layout_width="20dp"
@@ -102,30 +103,10 @@
             android:id="@+id/_taglistview"
             android:textFilterEnabled="true"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layout_marginBottom="30dp"/>
 
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="10dp"
-        android:layout_weight="1">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="검색어에 따른 추천"
-            android:textSize="20dp"
-            android:textColor="@color/black"/>
-
-        <ListView
-            android:id="@+id/_auto_listview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </LinearLayout>
-
 
 
 

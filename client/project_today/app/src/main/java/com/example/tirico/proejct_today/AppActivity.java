@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -42,6 +43,7 @@ public class AppActivity extends AppCompatActivity {
 
     server_communication sc;
 
+    ListView lvSearchResult;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +57,23 @@ public class AppActivity extends AppCompatActivity {
         btnLogout = (Button) findViewById(R.id.btnLogout);
         btnSearch = (Button) findViewById(R.id.btn_search);
 
+        tv_user.setText(id);
+
+        lvSearchResult = (ListView) findViewById(R.id._taglistview);
+
+        ArrayList<String> list = new ArrayList<String>();
+        list.add("점포명 : 소천지\n" + "주소 : 서울특별시 구로구 경인로43길 21 소천지(한식당)\n" + "전화번호 : 02-2688-5500");
+        list.add("점포명 : 뒤뜰\n" + "주소 : 서울특별시 구로구 안양천로539길 6\n" + "전화번호 : 02-2613-1973");
+        list.add("점포명 : 데일리스위츠\n" + "주소 : 서울특별시 구로구 중앙로 9 설송빌딩\n" + "전화번호 : 02-877-6126");
+        list.add("점포명 : 돈까스클럽 고척점\n" + "주소 : 서울특별시 구로구 경인로43길 21\n" + "전화번호 : 02-2615-7100");
+        list.add("점포명 : 개봉육고기\n" + "주소 : 서울특별시 구로구 경인로35길 131-25 \n" + "전화번호 : 02-2613-7115");
+        list.add("점포명 : 실크로드\n" + "주소 : 서울특별시 구로구 경인로 398 \n" + "전화번호 : 02-2066-6100");
+        list.add("점포명 : 송림가\n" + "주소 : 서울특별시 구로구 경인로 398 송림가\n" + "전화번호 : 02-2066-6000");
+
+        ArrayAdapter<String> adapter;
+        adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, list);
+        lvSearchResult.setAdapter(adapter);
+
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,9 +85,12 @@ public class AppActivity extends AppCompatActivity {
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String search = editSearch.getText().toString();
-                sc = new server_communication(search, 2);
-                sc.start();
+                //String search = editSearch.getText().toString();
+                //sc = new server_communication(search, 2);
+                //sc.start();
+                Intent intent2 = new Intent(getApplicationContext(), SearchActivity.class);
+                intent2.putExtra("result", "고척동 맛집");
+                startActivity(intent2);
             }
         });
 

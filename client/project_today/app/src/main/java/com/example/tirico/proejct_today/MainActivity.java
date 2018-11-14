@@ -15,7 +15,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     public static String uid;
-    public String id;
+    public static String id;
     public static String last_login;
     public static Handler handler;
     public static Message hdmsg;
